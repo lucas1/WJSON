@@ -66,27 +66,37 @@ sub Close {
         my $total = @{$self->reference->{$self->tmp}} || 1;
         if (scalar(@{$self->reference->{$tmp.'/'.$key}}) == 1) {
             my $result = $self->reference->{$tmp.'/'.$key}[0];
-            if (ref($self->reference->{$self->tmp}[($total - 1)]) eq 'HASH') {
-                $self->reference->{$self->tmp}[($total - 1)]{$key} = $result;
+            if (ref($self->reference->{$self->tmp}[$total - 1]) eq 'HASH') {
+                $self->reference->{$self->tmp}[$total - 1]{$key} = $result;
             }else{
-                my $t = scalar(@{$self->reference->{$self->tmp}[($total - 1)]}) || 1;
-                $self->reference->{$self->tmp}[($total - 1)][($t - 1)]{$key} = $result;
+                my $t = scalar(@{$self->reference->{$self->tmp}[$total - 1]}) || 1;
+                $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = $result;
             }
         }else{
-            if (ref($self->reference->{$self->tmp}[($total - 1)]) eq 'HASH') {
-                $self->reference->{$self->tmp}[($total - 1)]{$key} = $self->reference->{$tmp.'/'.$key};
+            if (ref($self->reference->{$self->tmp}[$total - 1]) eq 'HASH') {
+                $self->reference->{$self->tmp}[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
             }else{
-                my $t = scalar(@{$self->reference->{$self->tmp}[($total - 1)]}) || 1;
-                $self->reference->{$self->tmp}[($total - 1)][($t - 1)]{$key} = $self->reference->{$tmp.'/'.$key};
+                my $t = scalar(@{$self->reference->{$self->tmp}[$total - 1]}) || 1;
+                $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = $self->reference->{$tmp.'/'.$key};
             }
         }
     }else{
         my $total = scalar(@{$self->json}) || 1;
         if (scalar(@{$self->reference->{$tmp.'/'.$key}}) == 1) {
             my $result = $self->reference->{$tmp.'/'.$key}[0];
-            $self->json->[$total - 1]{$key} = $result;
+            if (ref($self->json->[$total - 1]) eq 'HASH') {
+                $self->json->[$total - 1]{$key} = $result;
+            }else{
+                my $t = scalar(@{$self->json->[$total - 1]}) || 1;
+                $self->json->[$total - 1][$t - 1]{$key} = $result;
+            }
         }else{
-            $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
+            if (ref($self->json->[$total - 1]) eq 'HASH') {          
+                $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
+            }else{
+                my $t = scalar(@{$self->json->[$total - 1]}) || 1;
+                $self->json->[$total - 1][$t - 1]{$key} = $self->reference->{$tmp.'/'.$key};
+            }
         }
     }
     delete($self->reference->{$tmp.'/'.$key});
@@ -456,7 +466,7 @@ Result JSON
         "key_3": "value_3",
         "key_1": "Formulário",
         "key_2": "value_2"
-    }
+    };
 
 =cut
 
