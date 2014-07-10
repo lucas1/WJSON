@@ -170,7 +170,7 @@ sub Print {
     
     my $result = undef;
     if (scalar(@{$self->json}) <= 1) {
-        if ($self->json->[0]) {
+        if (ref($self->json->[0]) eq 'ARRAY') {
             if (scalar(@{$self->json->[0]}) <= 1) {
                 $result = ${$self->json}[0][0];
             }else{
