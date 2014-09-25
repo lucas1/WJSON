@@ -144,7 +144,7 @@ sub Object {
     my ($self, @values) = @_;
     
     if (ref($values[0]) eq 'HASH') {
-        $self->hashObject(@values);
+        $self->HashObject(@values);
     }else{
         if (ref($self->reference->{$self->tmp}[0]) eq 'ARRAY') {
             push(@{$self->reference->{$self->tmp}[0]}, {@values});   
@@ -158,7 +158,7 @@ sub Object {
     }
 }
 
-sub hashObject {
+sub HashObject {
     my ($self, @values) = @_;
     unless (ref($values[0]) eq 'HASH') {
         $self->Object(@values);
@@ -180,6 +180,19 @@ sub hashObject {
 sub Header {
     return "application/json";
 }
+
+sub HeaderJS {
+    return "application/javascript";
+}
+
+sub HeaderCGI {
+    return "Content-type: application/json\n\n";
+}
+
+sub HeaderJSCGI {
+    return "Content-type: application/javascript\n\n";
+}
+
 
 sub Print {
     my $self = shift;
@@ -268,7 +281,7 @@ Version 0.01
 
 =cut
 
-=head2 hashObject
+=head2 HashObject
 
     Create hash object with prototyped set of {key/value} (properties)
 
@@ -283,6 +296,18 @@ Version 0.01
 =head2 Header
 
     Return "application/json"
+    
+=head2 HeaderJS
+
+    Return "application/javascript"
+    
+=head2 HeaderCGI
+
+    Return "Content-type: application/json\n\n";
+    
+=head2 HeaderJSCGI
+
+    Return "Content-type: application/javascript\n\n";
 
 =cut
 
@@ -330,7 +355,7 @@ Result JSON
 =head2 Example 3
 
     my $json = new WJSON;
-    $json->hashObject(
+    $json->HashObject(
         {
             key_1 => 'value_1',
             key_2 => 'value_2',
