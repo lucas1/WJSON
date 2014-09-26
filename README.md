@@ -40,7 +40,7 @@ Close object or array
 #### Object
 Create object with prototyped set of key/value (properties)
 
-#### hashObject
+#### HashObject
 Create hash object with prototyped set of {key/value} (properties)
 
 #### Array
@@ -48,6 +48,15 @@ Create array, set of value
 
 #### Header
 Return "application/json"
+
+#### HeaderJS
+Return "application/javascript"
+
+#### HeaderCGI
+Return "Content-type: application/json\n\n"
+
+#### HeaderJSCGI
+Return "Content-type: application/javascript\n\n"
 
 #### Print
 Print JSON
@@ -87,7 +96,7 @@ Print JSON
 #### Example 3
 
            my $json = new WJSON;
-           $json->hashObject(
+           $json->HashObject(
                {
                    key_1 => 'value_1',
                    key_2 => 'value_2',
