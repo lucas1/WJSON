@@ -67,18 +67,30 @@ sub Close {
         if (scalar(@{$self->reference->{$tmp.'/'.$key}}) == 1) {
             my $result = $self->reference->{$tmp.'/'.$key}[0];
             if (ref($self->reference->{$self->tmp}[$total - 1]) eq 'HASH') {
-                $self->reference->{$self->tmp}[$total - 1]{$key} = $result;
+                if (shift) {
+                    push($self->reference->{$self->tmp}, {$key => $result});
+                }else{
+                    $self->reference->{$self->tmp}[$total - 1]{$key} = $result;
+                }
             }else{
                 my $t = 1;
                 if ($self->reference->{$self->tmp}[$total - 1]) {
                     $t = scalar(@{$self->reference->{$self->tmp}[$total - 1]}) || 1;
                 }
-                $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = $result;
+                if (shift) {
+                    push($self->reference->{$self->tmp}[$total - 1], {$key => $result});
+                }else{
+                    if ($self->reference->{$self->tmp}[$total - 1][$t - 1]) {
+                        $self->reference->{$self->tmp}[$total - 1][$t]{$key} = $result;
+                    }else{
+                        $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = $result;
+                    }
+                }
             }
         }else{
             if (ref($self->reference->{$self->tmp}[$total - 1]) eq 'HASH') {
                 if (shift) {
-                    push($self->reference->{$self->tmp}[$total - 1], {$key => $self->reference->{$tmp.'/'.$key}});
+                    push($self->reference->{$self->tmp}, {$key => $self->reference->{$tmp.'/'.$key}});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -99,13 +111,21 @@ sub Close {
         if (scalar(@{$self->reference->{$tmp.'/'.$key}}) == 1) {
             my $result = $self->reference->{$tmp.'/'.$key}[0];
             if (ref($self->json->[$total - 1]) eq 'HASH') {
-                $self->json->[$total - 1]{$key} = $result;
+                if (shift) {
+                    push($self->json, {$key => $result});
+                }else{
+                    $self->json->[$total - 1]{$key} = $result;
+                }
             }else{
                 my $t = 1;
                 if ($self->json->[$total - 1]) {
                     $t = scalar(@{$self->json->[$total - 1]}) || 1;
                 }
-                $self->json->[$total - 1][$t - 1]{$key} = $result;
+                if (shift) {
+                    push($self->json->[$total - 1], {$key => $result});
+                }else{
+                    $self->json->[$total - 1][$t - 1]{$key} = $result;
+                }
             }
         }else{
             if (ref($self->json->[$total - 1]) eq 'HASH') {
@@ -120,9 +140,9 @@ sub Close {
                     $t = scalar(@{$self->json->[$total - 1]}) || 1;
                 }
                 if (shift) {
-                    push($self->json->[$total - 1][$t - 1], {$key => $self->reference->{$tmp.'/'.$key}});
+                    push($self->json, {$key => $self->reference->{$tmp.'/'.$key}});
                 }else{
-                    $self->json->[$total - 1][$t - 1]{$key} = $self->reference->{$tmp.'/'.$key};
+                    $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
             }
         }
@@ -134,9 +154,9 @@ sub Array {
     my ($self, @values) = @_;
     
     if ($self->tmp) {
-        push(@{$self->reference->{$self->tmp}}, @values);   
+        push(@{$self->reference->{$self->tmp}}, [@values]);   
     }else{
-        push(@{$self->json}, @values); 
+        push(@{$self->json}, [@values]); 
     }
 }
 
