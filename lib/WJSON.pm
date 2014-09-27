@@ -204,7 +204,11 @@ sub HashObject {
     }else{
         foreach my $row (@values){
             if ($self->reference->{$self->tmp}[0]) {
-                push(@{$self->reference->{$self->tmp}[0]}, $row);   
+                if (ref($self->reference->{$self->tmp}[0]) eq 'ARRAY') {
+                    push(@{$self->reference->{$self->tmp}[0]}, $row);
+                }else{
+                    push(@{$self->reference->{$self->tmp}}, $row);
+                }
             }else{
                 if ($self->tmp) {
                     push(@{$self->reference->{$self->tmp}}, $row);   
