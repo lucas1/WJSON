@@ -263,7 +263,7 @@ Print JSON
                 "key_3": "value_3",
                 "key_1": "Formulário",
                 "key_2": "value_2"
-            }
+            };
 
 ## AUTHOR
 Lucas Tiago de Moraes, <lucastiagodemoraes@gmail.com>
