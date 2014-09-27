@@ -83,6 +83,8 @@ sub Close {
                     push($self->reference->{$self->tmp}, {$key => $result});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1]{$key} = [$result];
+                }elsif($type == 3) {
+                    push($self->reference->{$self->tmp}, {$key => [$result]});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1]{$key} = $result;
                 }
@@ -95,6 +97,8 @@ sub Close {
                     push($self->reference->{$self->tmp}[$total - 1], {$key => $result});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = [$result];
+                }elsif($type == 3) {
+                    push($self->reference->{$self->tmp}[$total - 1], {$key => [$result]});
                 }else{
                     if ($self->reference->{$self->tmp}[$total - 1][$t - 1]) {
                         $self->reference->{$self->tmp}[$total - 1][$t]{$key} = $result;
@@ -109,6 +113,8 @@ sub Close {
                     push($self->reference->{$self->tmp}, {$key => $self->reference->{$tmp.'/'.$key}});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
+                }elsif($type == 3) {
+                    push($self->reference->{$self->tmp}, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -121,6 +127,8 @@ sub Close {
                     push($self->reference->{$self->tmp}[$total - 1], {$key => $self->reference->{$tmp.'/'.$key}});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
+                }elsif($type == 3) {
+                    push($self->reference->{$self->tmp}[$total - 1], {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -135,6 +143,8 @@ sub Close {
                     push($self->json, {$key => $result});
                 }elsif($type == 2) {
                     $self->json->[$total - 1]{$key} = [$result];
+                }elsif($type == 3) {
+                    push($self->json, {$key => [$result]});
                 }else{
                     $self->json->[$total - 1]{$key} = $result;
                 }
@@ -147,6 +157,8 @@ sub Close {
                     push($self->json->[$total - 1], {$key => $result});
                 }elsif($type == 2) {
                     $self->json->[$total - 1][$t - 1]{$key} = [$result];
+                }elsif($type == 3) {
+                    push($self->json->[$total - 1], {$key => [$result]});
                 }else{
                     $self->json->[$total - 1][$t - 1]{$key} = $result;
                 }
@@ -157,6 +169,8 @@ sub Close {
                     push($self->json, {$key => $self->reference->{$tmp.'/'.$key}});
                 }elsif($type == 2) {
                     $self->json->[$total - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
+                }elsif($type == 3) {
+                    push($self->json, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -169,6 +183,8 @@ sub Close {
                     push($self->json, {$key => $self->reference->{$tmp.'/'.$key}});
                  }elsif($type == 2) {
                     $self->json->[$total - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
+                }elsif($type == 3) {
+                    push($self->json, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
