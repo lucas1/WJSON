@@ -8,6 +8,7 @@ WriteMakefile
                    'Encode' => 0,
                    'JSON' => 0,
                    'Moose' => 0,
+                   'Tie::IxHash' => 0,
                    'Test::More' => 0
                  },
   'INSTALLDIRS' => 'site',
