@@ -652,7 +652,7 @@ Result JSON
             $json->Close;
         $json->Close;
     $json->Close;
-    print $json->HeaderJSCGI;
+    print $json->HeaderCGI;
     print $json->Print;
     
 Result JSON
@@ -709,7 +709,7 @@ Result JSON
             $json->Close;
         $json->Close;
     $json->Close;
-    print $json->HeaderJSCGI;
+    print $json->HeaderCGI;
     print $json->Print;
     
 Result JSON
