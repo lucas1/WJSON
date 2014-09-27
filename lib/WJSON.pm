@@ -238,7 +238,7 @@ sub HeaderJSCGI {
 
 
 sub Print {
-    my $self = shift;
+    my ($self, $type) = @_;
     
     my $result = undef;
     if (scalar(@{$self->json}) <= 1) {
@@ -254,6 +254,8 @@ sub Print {
     }else{
         $result = $self->json;
     }
+    
+    $result = [$result] if $type;
     
     if ($self->variable) {
         return 'var ' . $self->variable . ' = ' . encode $self->encoding, JSON->new->encode($result) . ';';
