@@ -21,6 +21,7 @@ requires:
   Encode: '0'
   JSON: '0'
   Moose: '0'
+  Tie::IxHash: '0'
 resources:
   license: http://www.perlfoundation.org/artistic_license_2_0
 version: '0.01'
