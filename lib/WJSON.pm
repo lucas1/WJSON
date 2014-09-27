@@ -3,6 +3,7 @@ package WJSON;
 use Moose;
 use JSON;
 use Encode;
+use Tie::IxHash;
 no warnings 'uninitialized';
 
 our $VERSION = '0.01';
@@ -39,6 +40,12 @@ has 'variable' => (
     isa => 'Str'
 );
 
+has 'ordering' => (
+    is => 'rw',
+    isa => 'Str',
+    default => 0
+);
+
 sub Open {
     my ($self, $value) = @_;
     
@@ -46,7 +53,9 @@ sub Open {
         if($self->tmp){
             my $tmp = $self->tmp;
             unless (scalar(@{$self->reference->{$self->tmp}})) {
-                $self->Object({});
+                my %hash;
+                tie %hash, 'Tie::IxHash' if $self->ordering;
+                $self->Object(\%hash);
             }
             $tmp .= '/' . $value;
             $self->tmp($tmp);
@@ -186,12 +195,21 @@ sub Object {
         $self->HashObject(@values);
     }else{
         if (ref($self->reference->{$self->tmp}[0]) eq 'ARRAY') {
-            push(@{$self->reference->{$self->tmp}[0]}, {@values});   
+            my %hash;
+            tie %hash, 'Tie::IxHash' if $self->ordering;
+            %hash = \@values;
+            push(@{$self->reference->{$self->tmp}[0]}, %hash);   
         }else{
             if ($self->tmp) {
-                push(@{$self->reference->{$self->tmp}}, {@values});   
+                my %hash;
+                tie %hash, 'Tie::IxHash' if $self->ordering;
+                %hash = @values;
+                push(@{$self->reference->{$self->tmp}}, \%hash);   
             }else{
-                push(@{$self->json}, {@values}); 
+                my %hash;
+                tie %hash, 'Tie::IxHash' if $self->ordering;
+                %hash = \@values;
+                push(@{$self->json}, %hash); 
             }
         }
     }
@@ -303,6 +321,12 @@ Version 0.01
 =head2 variable
 
     set variable and return var variable = {}
+    
+=cut
+
+=head2 ordering
+
+    set ordering with 1 or true and return json order by position
     
 =cut
 
