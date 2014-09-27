@@ -16,7 +16,7 @@ name: WJSON
 provides:
   WJSON:
     file: lib/WJSON.pm
-    version: '0.01'
+    version: '0.06'
 requires:
   Encode: '0'
   JSON: '0'
@@ -24,4 +24,4 @@ requires:
   Tie::IxHash: '0'
 resources:
   license: http://www.perlfoundation.org/artistic_license_2_0
-version: '0.01'
+version: '0.06'
