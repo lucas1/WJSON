@@ -6,7 +6,7 @@ use Encode;
 use Tie::IxHash;
 no warnings 'uninitialized';
 
-our $VERSION = '0.01';
+our $VERSION = '0.06';
 
 has 'json' => (
     is => 'ro',
@@ -80,11 +80,11 @@ sub Close {
             my $result = $self->reference->{$tmp.'/'.$key}[0];
             if (ref($self->reference->{$self->tmp}[$total - 1]) eq 'HASH') {
                 if ($type == 1) {
-                    push($self->reference->{$self->tmp}, {$key => $result});
+                    push(@{$self->reference->{$self->tmp}}, {$key => $result});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1]{$key} = [$result];
                 }elsif($type == 3) {
-                    push($self->reference->{$self->tmp}, {$key => [$result]});
+                    push(@{$self->reference->{$self->tmp}}, {$key => [$result]});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1]{$key} = $result;
                 }
@@ -94,11 +94,11 @@ sub Close {
                     $t = scalar(@{$self->reference->{$self->tmp}[$total - 1]}) || 1;
                 }
                 if ($type == 1) {
-                    push($self->reference->{$self->tmp}[$total - 1], {$key => $result});
+                    push(@{$self->reference->{$self->tmp}[$total - 1]}, {$key => $result});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = [$result];
                 }elsif($type == 3) {
-                    push($self->reference->{$self->tmp}[$total - 1], {$key => [$result]});
+                    push(@{$self->reference->{$self->tmp}[$total - 1]}, {$key => [$result]});
                 }else{
                     if ($self->reference->{$self->tmp}[$total - 1][$t - 1]) {
                         $self->reference->{$self->tmp}[$total - 1][$t]{$key} = $result;
@@ -110,11 +110,11 @@ sub Close {
         }else{
             if (ref($self->reference->{$self->tmp}[$total - 1]) eq 'HASH') {
                 if ($type == 1) {
-                    push($self->reference->{$self->tmp}, {$key => $self->reference->{$tmp.'/'.$key}});
+                    push(@{$self->reference->{$self->tmp}}, {$key => $self->reference->{$tmp.'/'.$key}});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
                 }elsif($type == 3) {
-                    push($self->reference->{$self->tmp}, {$key => [$self->reference->{$tmp.'/'.$key}]});
+                    push(@{$self->reference->{$self->tmp}}, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -124,11 +124,11 @@ sub Close {
                     $t = scalar(@{$self->reference->{$self->tmp}[$total - 1]}) || 1;
                 }
                 if ($type == 1) {
-                    push($self->reference->{$self->tmp}[$total - 1], {$key => $self->reference->{$tmp.'/'.$key}});
+                    push(@{$self->reference->{$self->tmp}[$total - 1]}, {$key => $self->reference->{$tmp.'/'.$key}});
                 }elsif($type == 2) {
                     $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
                 }elsif($type == 3) {
-                    push($self->reference->{$self->tmp}[$total - 1], {$key => [$self->reference->{$tmp.'/'.$key}]});
+                    push(@{$self->reference->{$self->tmp}[$total - 1]}, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->reference->{$self->tmp}[$total - 1][$t - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -140,11 +140,11 @@ sub Close {
             my $result = $self->reference->{$tmp.'/'.$key}[0];
             if (ref($self->json->[$total - 1]) eq 'HASH') {
                 if ($type == 1) {
-                    push($self->json, {$key => $result});
+                    push(@{$self->json}, {$key => $result});
                 }elsif($type == 2) {
                     $self->json->[$total - 1]{$key} = [$result];
                 }elsif($type == 3) {
-                    push($self->json, {$key => [$result]});
+                    push(@{$self->json}, {$key => [$result]});
                 }else{
                     $self->json->[$total - 1]{$key} = $result;
                 }
@@ -154,11 +154,11 @@ sub Close {
                     $t = scalar(@{$self->json->[$total - 1]}) || 1;
                 }
                 if ($type == 1) {
-                    push($self->json->[$total - 1], {$key => $result});
+                    push(@{$self->json->[$total - 1]}, {$key => $result});
                 }elsif($type == 2) {
                     $self->json->[$total - 1][$t - 1]{$key} = [$result];
                 }elsif($type == 3) {
-                    push($self->json->[$total - 1], {$key => [$result]});
+                    push(@{$self->json->[$total - 1]}, {$key => [$result]});
                 }else{
                     $self->json->[$total - 1][$t - 1]{$key} = $result;
                 }
@@ -166,11 +166,11 @@ sub Close {
         }else{
             if (ref($self->json->[$total - 1]) eq 'HASH') {
                 if ($type == 1) {
-                    push($self->json, {$key => $self->reference->{$tmp.'/'.$key}});
+                    push(@{$self->json}, {$key => $self->reference->{$tmp.'/'.$key}});
                 }elsif($type == 2) {
                     $self->json->[$total - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
                 }elsif($type == 3) {
-                    push($self->json, {$key => [$self->reference->{$tmp.'/'.$key}]});
+                    push(@{$self->json}, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -180,11 +180,11 @@ sub Close {
                     $t = scalar(@{$self->json->[$total - 1]}) || 1;
                 }
                 if ($type == 1) {
-                    push($self->json, {$key => $self->reference->{$tmp.'/'.$key}});
+                    push(@{$self->json}, {$key => $self->reference->{$tmp.'/'.$key}});
                  }elsif($type == 2) {
                     $self->json->[$total - 1]{$key} = [$self->reference->{$tmp.'/'.$key}];
                 }elsif($type == 3) {
-                    push($self->json, {$key => [$self->reference->{$tmp.'/'.$key}]});
+                    push(@{$self->json}, {$key => [$self->reference->{$tmp.'/'.$key}]});
                 }else{
                     $self->json->[$total - 1]{$key} = $self->reference->{$tmp.'/'.$key};
                 }
@@ -310,7 +310,7 @@ WJSON - Write JSON with simplicities
 
 =head1 VERSION
 
-Version 0.01
+Version 0.06
 
 =cut
 
@@ -617,15 +617,127 @@ Result JSON
 
 =cut
 
+=head2 Example 9
+
+    my $json = new WJSON;
+    $json->Open('glossary');
+        $json->Object(
+            title => 'example glossary'
+        );
+        $json->Open('GlossDiv');
+            $json->Object(
+                title => 'S'
+            );
+            $json->Open('GlossList');
+                $json->Object(
+                    GlossSee => 'markup'
+                );
+                $json->Open('GlossEntry');
+                    $json->Object(
+                        ID => 'SGML',
+                        SortAs => 'SGML',
+                        GlossTerm => 'Standard Generalized Markup Language',
+                        Acronym => 'SGML',
+                        Abbrev => 'ISO 8879:1986',
+                    );
+                    $json->Open('GlossDef');
+                        $json->Object(
+                            para => 'A meta-markup language, used to create markup languages such as DocBook.'
+                        );
+                        $json->Open('GlossSeeAlso');
+                            $json->Array('GML', 'XML');
+                        $json->Close;
+                    $json->Close;
+                $json->Close;
+            $json->Close;
+        $json->Close;
+    $json->Close;
+    print $json->HeaderJSCGI;
+    print $json->Print;
+    
+Result JSON
+
+    {
+        "glossary": {
+            "GlossDiv": {
+                "GlossList": {
+                    "GlossEntry": {
+                        "GlossDef": {
+                            "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                            "GlossSeeAlso": ["GML", "XML"]
+                        },
+                        "GlossTerm": "Standard Generalized Markup Language",
+                        "ID": "SGML",
+                        "SortAs": "SGML",
+                        "Acronym": "SGML",
+                        "Abbrev": "ISO 8879:1986"
+                    },
+                    "GlossSee": "markup"
+                },
+                "title": "S"
+            },
+            "title": "example glossary"
+        }
+    }
+    
+=cut
+    
+=head2 Example 10
+    
+    my $json = new WJSON;
+    $json->Open('menu');
+        $json->Object(
+            id => 'file',
+            value => 'File',
+        );
+        $json->Open('popup');
+            $json->Open('menuitem');
+                $json->Object(
+                    {
+                        value => 'New',
+                        onclick => 'CreateNewDoc()'
+                    },
+                    {
+                        value => 'Open',
+                        onclick => 'OpenDoc()'
+                    },
+                    {
+                        value => 'Close',
+                        onclick => 'CloseDoc()'
+                    }
+                );
+            $json->Close;
+        $json->Close;
+    $json->Close;
+    print $json->HeaderJSCGI;
+    print $json->Print;
+    
+Result JSON
+
+    {
+        "menu": {
+            "value": "File",
+            "popup": {
+                "menuitem": [{
+                    "value": "New",
+                    "onclick": "CreateNewDoc()"
+                }, {
+                    "value": "Open",
+                    "onclick": "OpenDoc()"
+                }, {
+                    "value": "Close",
+                    "onclick": "CloseDoc()"
+                }]
+            },
+            "id": "file"
+        }
+    }
+
+=cut
+
 =head1 AUTHOR
 
 Lucas Tiago de Moraes, C<< <lucastiagodemoraes@gmail.com> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-json-simple at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=JSON-Simple>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
 
 =head1 SUPPORT
 
@@ -633,38 +745,11 @@ You can find documentation for this module with the perldoc command.
 
     perldoc WJSON
 
-
 You can also look for information at:
 
 =head2 Github
 
-L<https://github.com/lucas1/JSON-Simple>
-
-=cut
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=JSON-Simple>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/JSON-Simple>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/JSON-Simple>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/JSON-Simple/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
+L<https://github.com/lucas1/WJSON>
 
 =head1 LICENSE AND COPYRIGHT
 
