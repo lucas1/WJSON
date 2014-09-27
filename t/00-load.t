@@ -10,4 +10,4 @@ BEGIN {
     use_ok( 'WJSON' ) || print "Bail out!\n";
 }
 
-diag( "Testing WJSON $WJSON::VERSION, Perl $], $^X" );
+diag( "Testing WJSON 0.06, Perl $], $^X" );
