@@ -18,7 +18,8 @@ my $builder = Module::Build->new(
     requires => {
         'Moose' => 0,
         'JSON' => 0,
-        'Encode' => 0
+        'Encode' => 0,
+        'Tie::IxHash' => 0
     },
     add_to_cleanup     => [ 'WJSON-*' ],
     create_makefile_pl => 'traditional',
