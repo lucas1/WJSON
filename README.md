@@ -29,6 +29,9 @@ set encoding, default utf-8
 #### variable
 set variable and return: var get_variable = {}
 
+#### ordering
+set ordering with 1 or true and return json order by position
+
 ## METHODS
 
 #### Open
