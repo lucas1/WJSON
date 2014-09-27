@@ -356,7 +356,7 @@ Version 0.01
     
 =head2 Close
 
-    Close object or array, set 1 to separates of reference, set 2 to add within in array,
+    Close object or array, set 1 to separates of reference, set 2 to add value within of array,
     set 3 is 1 and 2 together
 
 =cut
